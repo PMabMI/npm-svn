@@ -165,7 +165,7 @@ function checkout(dep) {
 
 function update(dep) {
     return function (callback) {
-        return svn.update(rootDir + "/" + dep.installDir,
+        return svn.update([rootDir + "/" + dep.installDir],
             Object.assign({revision: dep.rev}, svnOptions),
             function (error, result) {
             //console.log("UP", result);
@@ -176,7 +176,7 @@ function update(dep) {
 
 function cleanup(dep) {
     return function (callback) {
-        return svn.cleanup(rootDir + "/" + dep.installDir, svnOptions, function (error, result) {
+        return svn.cleanup([rootDir + "/" + dep.installDir], svnOptions, function (error, result) {
             //console.log("Cleanup", result);
             return callback(error ? result : null)
         })
