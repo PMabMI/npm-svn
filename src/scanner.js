@@ -170,7 +170,7 @@ function update(dep) {
     return function (callback) {
         if (dep.installDirExists && !dep.skipUpdate) {
             console.log(colors.green("Updating"), colors.yellow(dep.name), "rev=" + dep.rev, "from", dep.COPath);
-            return svn.update(rootDir + "/" + dep.installDir,
+            return svn.update([rootDir + "/" + dep.installDir],
                 Object.assign({revision: dep.rev}, svnOptions),
                 function (error, result) {
                 //console.log("UP", result);
@@ -182,7 +182,7 @@ function update(dep) {
 
 function cleanup(dep) {
     return function (callback) {
-        if (dep.installDirExists) return svn.cleanup(rootDir + "/" + dep.installDir, svnOptions, function (error, result) {
+        if (dep.installDirExists) return svn.cleanup([rootDir + "/" + dep.installDir], svnOptions, function (error, result) {
             //console.log("Cleanup", result);
             return callback(error ? result : null)
         })
